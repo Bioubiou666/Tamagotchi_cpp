@@ -1,4 +1,61 @@
-#include "graphics_functions.hpp"
+#include "../include/graphics_functions.hpp"
+
+
+// Start language
+int lang = 0;
+
+
+string EggDef = "../data/graphics/AllEggs/Egg_Def.txt";
+string Egg1 = "../data/graphics/AllEggs/Egg_1.txt";
+string Egg2 = "../data/graphics/AllEggs/Egg_2.txt";
+string Egg3 = "../data/graphics/AllEggs/Egg_3.txt";
+string Egg4 = "../data/graphics/AllEggs/Egg_4.txt";
+string Egg5 = "../data/graphics/AllEggs/Egg_5.txt";
+string RandomImg = "../data/graphics/AllEggs/RandomImg.txt";
+string ListImgEgg[7] = {EggDef, Egg1, Egg2, Egg3, Egg4, Egg5, RandomImg};
+
+string DefImg = "../data/graphics/StateTAMA/default.txt";
+
+// ADD HERE ALL DISPLAY TAMA
+//
+//
+string allLang = "../data/lang/testttt.txt";
+
+// Function to create list all language
+int MakeLang() {
+    ifstream monFlux(allLang);  //Ouverture d'un fichier en lecture
+
+
+    if(monFlux) {
+        /*
+        int x;
+        monFlux >> x;
+        int y;
+        monFlux >> y;
+
+        monFlux.ignore();        //On change de mode
+
+        char a;
+        for(int i = 1; i <= y; i++) {
+            for(int j = 0; j <= x; j++) {
+                monFlux.get(a);
+                if(a != '\n') {
+                    cout << static_cast<char>(a);
+                }
+            }
+            gotoxy(startX,startY+i);
+        }
+
+        monFlux.close();
+        */
+
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
 
 
 // Function to change language
@@ -437,11 +494,17 @@ int confirm(int startX, int startY, int type) {
     string text;
 
     string NoYes[2] = {ListText[lang + Menu_YesNo + 2], ListText[lang + Menu_YesNo + 1]};
-
+    int addSizeX = 0;
+    int addSizeY = 0;
 
     switch (type){
     case 1:
         text = ListText[lang + MenuQuit + 1];
+        addSizeY = 2;
+        break;
+    case 2:
+        text = ListText[lang + MenuPause + 3];
+        addSizeX = -4;
         break;
     default:
         text = ListText[lang + MenuQuit + 2];
@@ -449,11 +512,12 @@ int confirm(int startX, int startY, int type) {
     }
 
     color(7);
-    Ptext(startX, startY, startX + 40, startY + 2,  1, 0, 1,text);
+    clearSpace(startX - addSizeX, startY, startX + addSizeX + 40, startY + addSizeY + 2);
+    Ptext(startX - addSizeX, startY, startX + addSizeX + 40, startY + addSizeY + 2,  1, 0, 1,text);
 
-    result = MenuSelect(startX + 13, startY + 2, 1, 2, 10, 1, 0, -1, 0, 12, NoYes, 2);
+    result = MenuSelect(startX + 11, startY + addSizeY + 2, 1, 2, 16, 1, 0, -1, 0, 12, NoYes, 2);
     
-    system("cls");
+    clearSpace(startX - addSizeX - 2, startY - 1, startX + addSizeX + 43, startY + addSizeY + 3);
     return result;
 
 }
@@ -462,173 +526,14 @@ int confirm(int startX, int startY, int type) {
 // Function for language selection (program start)
 int SelectLang() {
     int ColorSelect = 12;
-    string ListLANG[CountLang];
-    for (int i = 0; i < CountLang; i++) {
+    string ListLANG[COUNTLANG];
+    for (int i = 0; i < COUNTLANG; i++) {
         ListLANG[i] = ListText[SizeLang * i + ListLang + 1];
     }
 
     int BorderX = 40;
     Ptext((sizeWinX)/2 - size(ListText[lang + SelectLanguage + 1])/2, (sizeWinY)/2 - 7,(sizeWinX)/2 + size(ListText[lang + SelectLanguage + 1])/2, (sizeWinY)/2, 0,0,0, ListText[lang + SelectLanguage + 1]);
-    int selectLang = MenuSelect((sizeWinX)/2 - BorderX/2,sizeWinY/2 + 2, 1, CountLang, (BorderX + 1)/(CountLang - 1), 1, 0, -1, 3, ColorSelect, ListLANG, CountLang);
+    int selectLang = MenuSelect((sizeWinX)/2 - BorderX/2,sizeWinY/2 + 2, 1, COUNTLANG, (BorderX + 1)/(COUNTLANG - 1), 1, 0, -1, 3, ColorSelect, ListLANG, COUNTLANG);
     int select = chanLang(selectLang - 1);
     return select;
-}
-
-
-// Function for cracked egg display
-void Crackled(int WRITE) {
-    if(WRITE = 1) {
-    gotoxy(sizeWinX/2 - 6,sizeWinY/2 - 4);
-    cout << "\\";
-    gotoxy(sizeWinX/2 - 8,sizeWinY/2 - 2);
-    cout << "\\";
-
-    gotoxy(sizeWinX/2 + 5,sizeWinY/2 - 4);
-    cout << "/";
-    gotoxy(sizeWinX/2 + 7,sizeWinY/2 - 2);
-    cout << "/";
-
-    gotoxy(sizeWinX/2,sizeWinY/2);
-    cout << "@@";
-    gotoxy(sizeWinX/2,sizeWinY/2 - 1);
-    cout << "@";
-    gotoxy(sizeWinX/2 - 3,sizeWinY/2);
-    cout << "@";
-    gotoxy(sizeWinX/2 - 2,sizeWinY/2 - 1);
-    cout << "@";
-    }
-    else {
-        // erase
-    gotoxy(sizeWinX/2 - 6,sizeWinY/2 - 4);
-    cout << " ";
-    gotoxy(sizeWinX/2 - 8,sizeWinY/2 - 2);
-    cout << " ";
-
-    gotoxy(sizeWinX/2 + 5,sizeWinY/2 - 4);
-    cout << " ";
-    gotoxy(sizeWinX/2 + 7,sizeWinY/2 - 2);
-    cout << " ";
-    }
-
-}
-
-
-// Function for background display
-void Background() {
-    int hMax = sizeWinY - 11;
-    int hWall = hMax * 3/4;
-    int lBack = (sizeWinX + 1)/2;
-    for(int i = 1; i < hWall ; i++) {
-        gotoxy(sizeWinX/2 - lBack/2, i);
-        cout << "|";
-        gotoxy(sizeWinX/2 + lBack/2, + i);
-        cout << "|";
-    }
-
-    gotoxy(sizeWinX/2 - lBack/2, hWall);
-    cout << "|";
-    for(int i = 1; i < lBack; i++) {
-        gotoxy(sizeWinX/2 - lBack/2 + i, hWall);
-        cout << "_";
-    }
-    gotoxy(sizeWinX/2 + lBack/2, hWall);
-    cout << "|";
-
-    for(int i = 1; i < hMax - hWall ; i++) {
-        gotoxy(sizeWinX/2 - lBack/2 - i, hWall + i);
-        cout << "//";
-        gotoxy(sizeWinX/2 + lBack/2 + i - 1, hWall + i);
-        cout << "\\\\";
-    }
-
-}
-
-
-// Update of tama stat display
-void AllStatDisplay(Tamagotchi MainTAMA) {
-    string Day;
-    string State;
-    string Education;
-
-    // AGE
-    if(MainTAMA.getAge() > 1) {
-        Day = ListText[lang + StatDisplay + 3];
-    }
-    else {
-        Day = ListText[lang + StatDisplay + 2];
-    }
-    string Age = ListText[lang + StatDisplay + 1] + ": " + to_string(MainTAMA.getAge()) + " " + Day;
-    Ptext(1, 2, sizeWinX, 2, 0,0,0, Age);
-    // STATE
-    switch (MainTAMA.getState()){
-    case 1:
-        State = ListText[lang + StateTAMA + 1];
-        break;
-    case 2:
-        State = ListText[lang + StateTAMA + 2];
-        break;
-    case 3:
-        State = ListText[lang + StateTAMA + 3];
-        break;
-    case 4:
-        State = ListText[lang + StateTAMA + 4];
-        break;
-    case 5:
-        State = ListText[lang + StateTAMA + 5];
-        break;
-    case 6:
-        State = ListText[lang + StateTAMA + 6];
-        break;
-    case 7:
-        State = ListText[lang + StateTAMA + 7];
-        break;
-    default:
-        State = ListText[lang + StateTAMA + 8];
-        break;
-    }
-    State = ListText[lang + StateTAMA + 9] + ": " + State;
-    Ptext(1, 4, 1 + sizeof(State), 4, 0,0,0, State);
-    // EDUCATION
-    if(MainTAMA.getEducation() <= MainTAMA.getMaxEd()/3) {
-        Education = ListText[lang + StateEducation + 1];
-    }
-    else if(MainTAMA.getEducation() >= MainTAMA.getMaxEd() - MainTAMA.getMaxEd()/3) {
-        Education = ListText[lang + StateEducation + 3];
-    }
-    else {
-        Education = ListText[lang + StateEducation + 2];
-    }
-    Education = ListText[lang + StateEducation + 4] + ": " + Education;
-    Ptext(1, 6, 1 + sizeof(Education), 6, 0,0,0, Education);
-    // HAPPINESS
-    Ptext(1, 8, 1 + sizeof(ListText[lang + StatDisplay + 4]), 8, 0,0,0, ListText[lang + StatDisplay + 4]);
-    progressBar(1, 9, MainTAMA.getMaxHp(), 1, 3, MainTAMA.getHappiness());
-
-    Ptext(sizeWinX - 20, 2, sizeWinX, 2, 0,0,0, ListText[lang + StatDisplay + 5]);
-    progressBar(sizeWinX - 20, 3, MainTAMA.getMaxE(), 1, 0, MainTAMA.getEnergy());
-    Ptext(sizeWinX - 20, 5, sizeWinX, 5, 0,0,0, ListText[lang + StatDisplay + 6]);
-    progressBar(sizeWinX - 20, 6, MainTAMA.getMaxH(), 1, 1, MainTAMA.getHunger());
-    Ptext(sizeWinX - 20, 8, sizeWinX, 8, 0,0,0, ListText[lang + StatDisplay + 7]);
-    progressBar(sizeWinX - 20, 9, MainTAMA.getMaxC(), 1, 2, MainTAMA.getHygiene());
-
-}
-
-
-//voir si faire une fonction au dessus pour affichage tama
-
-
-
-// Udapte Display Game
-void UdapteDisplayGame(Tamagotchi MainTAMA, int BorderY) {
-    int sizeImgY = 5;
-    system("cls");
-    Fenetre(sizeWinX,sizeWinY);
-    Background();
-    Pborder(3,sizeWinY - BorderY,sizeWinX - 4,sizeWinY - 4,1,1);
-    // function img tama
-    if(MainTAMA.getState() == 1) {
-        sizeImgY = 6;
-    }
-    Ptext(sizeWinX/2 - size(MainTAMA.getName())/2, sizeWinY - sizeImgY - BorderY - 5, sizeWinX/2 + size(MainTAMA.getName())/2,  sizeWinY - sizeImgY - BorderY - 5, 0,0,0, MainTAMA.getName());
-    AllStatDisplay(MainTAMA);
 }

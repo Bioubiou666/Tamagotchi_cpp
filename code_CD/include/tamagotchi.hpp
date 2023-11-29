@@ -1,18 +1,19 @@
 #ifndef TAMAGOTCHI_HPP
 #define TAMAGOTCHI_HPP
 
-#include <iostream> // voir si j'en ai besoin
 #include <string>
 using namespace std;
+#include <iostream>
+#include <fstream>
 
 class Tamagotchi {
 private:
     string Name;        // Private attribute representing the name (maximum number of changes defined by MAX_CHANGE)
     int MAX_CHANGE;     // Private attribute representing the maximum allowed number of changes (min 0)
-    int Type;           // Private attribute representing the type
+    int Type;           // Private attribute representing the type (0 = no type; max 5)
 
     int Age;            // Private attribute representing the age in days
-    int Evolved;        // Private attribute representing the state of evolution (0 = no evolved, 1 = evolved)
+    int Evolved;        // Private attribute representing the state of evolution (0 = egg, 1 = no evolved, 2 = evolved)
     int State;          // Private attribute representing the state (0 = default, 1 = happy, 2 = sad, 3 = sick, 4 = tired, 5 = affraid, 6 = aggressive, 7 = crazy)
 
     int Energy;         // Private attribute representing energy (min 0; maxE)
@@ -116,6 +117,12 @@ public:
 
     // Method to update state
     void UpdateState();
+
+    // Method to save game
+    bool Save();
+
+    // Method to load game
+    bool Load();
     
 
     // Method to feed

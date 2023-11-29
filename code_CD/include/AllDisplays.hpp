@@ -6,9 +6,6 @@
 // Default Page
 void DefaultPage();
 
-// Save Page
-void mainSave();
-
 // Graveyard Page
 void mainGraveyard();
 
@@ -16,7 +13,7 @@ void mainGraveyard();
 void mainSettings();
 
 // Pause Window
-int pauseWindow();
+int pauseWindow(Tamagotchi MainTAMA);
 
 
 //
@@ -31,13 +28,33 @@ void mainNewGameDisplay(char &test, string &NAME, int choice);
 // Main function name selection tama
 string mainNewGameNAME();
 
+
 // Function to confirm egg selection
 int confirmEgg(string selectName, string selectImg);
 
 // Function for egg selection
 int mainNewGameTYPE();
 
+
+// Function for cracked egg display
+void Crackled(int WRITE);
+
+// Function for background display
+void Background();
+
+// Update of tama stat display
+void AllStatDisplay(Tamagotchi MainTAMA);
+
+// Function for image of Tamagotchi display
+void ImgTamaDisplay(Tamagotchi MainTAMA);
+
+// Udapte Display Game
+void UdapteDisplayGame(Tamagotchi MainTAMA, int BorderY);
+
+// Function for hatching egg
+bool hatching(Tamagotchi MainTAMA);
+
 // Main game function
-void mainGame(Tamagotchi MainTAMA);
+void mainGame(int test, Tamagotchi MainTAMA);
 
 #endif

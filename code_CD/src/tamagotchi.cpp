@@ -1,4 +1,4 @@
-#include "tamagotchi.hpp"
+#include "../include/tamagotchi.hpp"
 
 // Default constructor
 Tamagotchi::Tamagotchi() {
@@ -23,7 +23,7 @@ Tamagotchi::Tamagotchi() {
 // Semi overloaded constructor ONLY NAME
 Tamagotchi::Tamagotchi(string NAME) {
     Name = NAME;
-    Type = 0;
+    Type = 1;
     Age = 0;
     Evolved = 0;
     State = 1;
@@ -223,12 +223,82 @@ void Tamagotchi::AgeUp() {
 
 // Method to update evolve
 void Tamagotchi::Evolve() {
-    //zzz
+    if (Evolved < 0) {
+        Evolved = 0;
+    }
+    else if (Evolved < 2) {
+        Evolved++;
+    }
+    else {
+        Evolved = 2;
+    }
 }
 
 // Method to update state
 void Tamagotchi::UpdateState() {
     //zzz
+}
+
+// Method to save game
+bool Tamagotchi::Save() {
+    string fileName = "../data/save/save_game.txt";
+    ofstream file(fileName);
+
+    if (file.is_open()) {
+        file << Name << endl;
+        file << Type << endl;
+        file << Age << endl;
+        file << Evolved << endl;
+        file << State << endl;
+        file << Energy << endl;
+        file << Hunger << endl;
+        file << Happiness << endl;
+        file << Hygiene << endl;
+        file << Education << endl;
+        file << MAX_CHANGE << endl;
+        file << maxE << endl;
+        file << maxH << endl;
+        file << maxHp << endl;
+        file << maxC << endl;
+        file << maxEd << endl;
+
+        file.close();
+        return 1;
+    } else {
+        cerr << "Unable to open file " << fileName << endl;
+        return 0;
+    }
+}
+
+// Method to load game
+bool Tamagotchi::Load() {
+    string fileName = "../data/save/save_game.txt";
+    ifstream file(fileName);
+
+    if (file.is_open()) {
+        file >> Name;
+        file >> Type;
+        file >> Age;
+        file >> Evolved;
+        file >> State;
+        file >> Energy;
+        file >> Hunger;
+        file >> Happiness;
+        file >> Hygiene;
+        file >> Education;
+        file >> MAX_CHANGE;
+        file >> maxE;
+        file >> maxH;
+        file >> maxHp;
+        file >> maxC;
+        file >> maxEd;
+
+        file.close();
+        return 1;
+    } else {
+        cerr << "Unable to open file " << fileName << endl;
+        return 0;
+    }
 }
 
 

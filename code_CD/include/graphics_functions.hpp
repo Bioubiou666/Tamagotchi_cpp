@@ -11,36 +11,50 @@
 #include <random>       // Pour fonction al‚atoire
 #include <ctime>        //
 
-#include "mainInfo.cpp" // Pour les infos du jeu
 #include "tamagotchi.hpp"
-#include "AllLang.cpp"
+#include "AllLang.hpp"
 
 
 using namespace std;    //
 
+// Main game information
+
+#define gameName "Tamagotchi"
+#define gameVersion "V0.1"
+#define gameVersionDate "09/13/23"
+#define sizeWinX 119
+#define sizeWinY 30
+
+// define key press
 #define KEY_UP 72
 #define KEY_DOWN 80
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 
 // Start language
-int lang = 0;
+extern int lang;
 
 
-string EggDef = "graphics/AllEggs/Egg_Def.txt";
-string Egg1 = "graphics/AllEggs/Egg_1.txt";
-string Egg2 = "graphics/AllEggs/Egg_2.txt";
-string Egg3 = "graphics/AllEggs/Egg_3.txt";
-string Egg4 = "graphics/AllEggs/Egg_4.txt";
-string Egg5 = "graphics/AllEggs/Egg_5.txt";
-string RandomImg = "graphics/AllEggs/RandomImg.txt";
-string ListImgEgg[7] = {EggDef, Egg1, Egg2, Egg3, Egg4, Egg5, RandomImg};
+extern string EggDef;
+extern string Egg1;
+extern string Egg2;
+extern string Egg3;
+extern string Egg4;
+extern string Egg5;
+extern string RandomImg;
+extern string ListImgEgg[7];
 
-// ADD HERE ALL DISPLY TAMA
+extern string DefImg;
+
+// ADD HERE ALL DISPLAY TAMA
 //
 //
 
+extern string allLang;
 
+
+// Function to create list all language
+int MakeLang();
 
 // Function to change language
 int chanLang(int choice);
@@ -83,22 +97,5 @@ int confirm(int startX, int startY, int type);
 
 // Function for language selection (program start)
 int SelectLang();
-
-// Function for cracked egg display
-void Crackled(int WRITE);
-
-// Function for background display
-void Background();
-
-// Update of tama stat display
-void AllStatDisplay(Tamagotchi MainTAMA);
-
-
-//voir si faire une fonction au dessus pour affichage tama
-
-
-// Udapte Display Game
-void UdapteDisplayGame(Tamagotchi MainTAMA, int BorderY);
-
 
 #endif
